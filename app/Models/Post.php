@@ -8,20 +8,20 @@ class Post extends Model
 {
     //
     protected $fillable = [
-        'title',
-        'slug',
-        'category_id',
-        'color',
-        'image',
-        'body',
-        'tags',
-        'published',
-        'published_at',
+        "title",
+        "slug",
+        "category_id",
+        "color",
+        "image",
+        "body",
+        "tags",
+        "published",
+        "published_at",
     ];
     protected $casts = [
-        'tags' => 'array',
-        'published' => 'boolean',
-        'published_at' => 'date',
+        "tags" => "array",
+        "published" => "boolean",
+        "published_at" => "date",
     ];
     public function category()
     {

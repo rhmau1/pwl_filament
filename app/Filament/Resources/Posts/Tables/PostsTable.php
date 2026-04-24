@@ -14,15 +14,22 @@ class PostsTable
 {
     public static function configure(Table $table): Table
     {
-        return $table
+        return $table            
             ->columns([
-            TextColumn::make('title'),
-            TextColumn::make('slug'),
-            TextColumn::make('category.name'),
+            TextColumn::make('title')
+            ->sortable(),
+            TextColumn::make('slug')
+            ->sortable(),
+            TextColumn::make('category.name')
+            ->sortable(),
+            TextColumn::make('created_at')
+            ->label('Created At')
+            ->dateTime()
+            ->sortable(),
             ColorColumn::make('color'),
             ImageColumn::make('image')
              ->disk('public'),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

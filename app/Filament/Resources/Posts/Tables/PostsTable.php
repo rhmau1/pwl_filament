@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\ColorColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -19,6 +20,9 @@ class PostsTable
     {
         return $table            
             ->columns([
+            TextColumn::make('id')
+            ->label('ID') 
+            ->toggleable(isToggledHiddenByDefault: true),
             TextColumn::make('title')
             ->searchable()
             ->sortable(),
@@ -28,6 +32,11 @@ class PostsTable
             TextColumn::make('category.name')
             ->searchable()
             ->sortable(),
+            TextColumn::make('tags')
+            ->label('Tags')->toggleable(isToggledHiddenByDefault: true),
+            IconColumn::make('published')
+            ->boolean()
+            ->label('Published'),
             TextColumn::make('created_at')
             ->label('Created At')
             ->dateTime()

@@ -18,46 +18,53 @@ class PostsTable
 {
     public static function configure(Table $table): Table
     {
-        return $table            
+        return $table
             ->columns([
-            TextColumn::make('id')
-            ->label('ID') 
-            ->toggleable(isToggledHiddenByDefault: true),
-            TextColumn::make('title')
-            ->searchable()
-            ->sortable(),
-            TextColumn::make('slug')
-            ->searchable()
-            ->sortable(),
-            TextColumn::make('category.name')
-            ->searchable()
-            ->sortable(),
-            TextColumn::make('tags')
-            ->label('Tags')->toggleable(isToggledHiddenByDefault: true),
-            IconColumn::make('published')
-            ->boolean()
-            ->label('Published'),
-            TextColumn::make('created_at')
-            ->label('Created At')
-            ->dateTime()
-            ->sortable(),
-            ColorColumn::make('color'),
-            ImageColumn::make('image')
-             ->disk('public'),
+                TextColumn::make('id')
+                    ->label('ID')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('title')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('slug')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('category.name')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('tags')
+                    ->label('Tags')->toggleable(isToggledHiddenByDefault: true),
+                IconColumn::make('published')
+                    ->boolean()
+                    ->label('Published')
+                    ->toggleable(),
+                TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(),
+                ColorColumn::make('color')
+                    ->toggleable(),
+                ImageColumn::make('image')
+                    ->disk('public')
+                    ->toggleable(),
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('created_at')
-                ->label('Creation Date')
-                ->schema([
-                    DatePicker::make('created_at')
-                    ->label('Select Date'),
-                ])
-                ->query(function ($query, $data) {
-                     return $query->when(
-                        $data['created_at'],
-                        fn ($query, $date) => $query->whereDate('created_at', $date)
-                     );
-                }),
+                    ->label('Creation Date')
+                    ->schema([
+                        DatePicker::make('created_at')
+                            ->label('Select Date'),
+                    ])
+                    ->query(function ($query, $data) {
+                        return $query->when(
+                            $data['created_at'],
+                            fn ($query, $date) => $query->whereDate('created_at', $date)
+                        );
+                    }),
                 SelectFilter::make('category_id')
                     ->label('Select Category')
                     ->relationship('category', 'name')

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use App\Models\Category;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\DatePicker;
@@ -40,7 +41,8 @@ class PostForm
                             Select::make("category_id")
                                 ->required()
                                 ->relationship("category", "name")
-                                ->preload()
+                                // ->preload()
+                                ->options(Category::all()->pluck("name", "id"))
                                 ->searchable()
                                 ->validationMessages([
                                     'required' => 'category harus dipilih'
@@ -60,7 +62,10 @@ class PostForm
                     Section::make("Meta")
                         ->icon("heroicon-o-tag")
                         ->schema([
-                            TagsInput::make("tags"),
+                            // TagsInput::make("tags"),
+                            Select::make('tags')
+                                ->relationship('tags','name')
+                                ->multiple(),
                             Checkbox::make('published'),
                             DatePicker::make('published_at'),
                         ]),

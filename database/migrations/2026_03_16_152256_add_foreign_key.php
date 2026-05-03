@@ -27,8 +27,9 @@ return new class extends Migration
     {
         //
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('category_id');
             $table->dropForeign(['category_id']);
+            $table->dropColumn('category_id');
+            $table->integer('category_id');
         });
     }
 };
